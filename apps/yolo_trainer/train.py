@@ -50,6 +50,17 @@ def main(args: argparse.Namespace) -> None:
             "Hãy đảm bảo đã gán nhãn và đặt dữ liệu đúng cấu trúc."
         )
 
+    # ── Tự động patch data.yaml với đường dẫn tuyệt đối đúng theo OS ──────────
+    import yaml
+    dataset_dir = data_path.parent.resolve()
+    with open(data_path, "r", encoding="utf-8") as f:
+        yaml_data = yaml.safe_load(f)
+    yaml_data["path"] = str(dataset_dir)
+    with open(data_path, "w", encoding="utf-8") as f:
+        yaml.dump(yaml_data, f, allow_unicode=True, default_flow_style=False)
+    print(f"  Dataset path → {dataset_dir}")
+    # ──────────────────────────────────────────────────────────────────────────
+
     model = YOLO(args.model)
 
     results = model.train(
