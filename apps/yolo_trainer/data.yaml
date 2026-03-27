@@ -1,0 +1,10 @@
+# carton dataset config — YOLOv8 Segmentation
+# Đặt file này cùng cấp với thư mục datasets/
+
+path: datasets/carton_seg   # root dir
+train: images/train
+val:   images/val
+
+nc: 1  # number of classes
+names:
+  0: carton_print            # vùng in trên tờ carton/màng nhựa

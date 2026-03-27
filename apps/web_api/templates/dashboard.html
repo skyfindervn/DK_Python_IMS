@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DK Python IMS — Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0d1117;
+  --surface: #161b22;
+  --surface2: #21262d;
+  --border: #30363d;
+  --accent: #238636;
+  --accent2: #1f6feb;
+  --warn: #d29922;
+  --danger: #da3633;
+  --text: #e6edf3;
+  --text-muted: #8b949e;
+  --tab-active: #238636;
+  --radius: 8px;
+  --font: 'Inter', sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--bg); color: var(--text); font-family: var(--font); min-height: 100vh; }
+
+/* ─── Header ────────────────────────────────────────────────── */
+header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
+  position: sticky; top: 0; z-index: 100;
+}
+.logo { display: flex; align-items: center; gap: 10px; }
+.logo-icon { width: 36px; height: 36px; background: linear-gradient(135deg, #238636, #1f6feb); border-radius: 8px;
+  display: flex; align-items: center; justify-content: center; font-size: 18px; }
+.logo-text { font-weight: 700; font-size: 15px; }
+.logo-sub { font-size: 11px; color: var(--text-muted); font-weight: 400; }
+.header-status { display: flex; align-items: center; gap: 8px; font-size: 13px; }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+/* ─── Tab nav ───────────────────────────────────────────────── */
+.tab-nav {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px;
+  display: flex;
+  gap: 0;
+}
+.tab-btn {
+  padding: 12px 20px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-muted);
+  border: none;
+  border-bottom: 2px solid transparent;
+  background: none;
+  transition: all .15s;
+  display: flex; align-items: center; gap: 6px;
+}
+.tab-btn:hover { color: var(--text); }
+.tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+.tab-badge { background: var(--surface2); color: var(--text-muted); font-size: 10px;
+  padding: 1px 6px; border-radius: 10px; font-weight: 600; }
+
+/* ─── Main layout ───────────────────────────────────────────── */
+main { padding: 24px; max-width: 1400px; margin: 0 auto; }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* ─── Stats row ─────────────────────────────────────────────── */
+.stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+.stat-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 6px; }
+.stat-value { font-size: 28px; font-weight: 700; font-family: var(--mono); }
+.stat-sub { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+.stat-ok .stat-value { color: #3fb950; }
+.stat-warn .stat-value { color: var(--warn); }
+.stat-err .stat-value { color: var(--danger); }
+.stat-info .stat-value { color: #58a6ff; }
+
+/* ─── Content grid ──────────────────────────────────────────── */
+.content-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.content-grid.three { grid-template-columns: 1fr 1fr 1fr; }
+@media(max-width: 1100px) { .content-grid, .content-grid.three { grid-template-columns: 1fr; } }
+
+/* ─── Panel card ─────────────────────────────────────────────── */
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.panel-header {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.panel-title { font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 6px; }
+.panel-actions { display: flex; gap: 6px; }
+.btn-xs {
+  padding: 4px 10px; border-radius: 5px; font-size: 11px; font-weight: 600;
+  border: 1px solid var(--border); background: var(--surface2); color: var(--text-muted);
+  cursor: pointer; transition: .15s;
+}
+.btn-xs:hover { color: var(--text); border-color: var(--text-muted); }
+.btn-xs.danger:hover { color: var(--danger); border-color: var(--danger); }
+
+/* ─── Image preview ─────────────────────────────────────────── */
+.img-wrap {
+  padding: 12px;
+  min-height: 220px;
+  display: flex; align-items: center; justify-content: center;
+  background: #0a0d12;
+  position: relative;
+}
+.img-wrap img { max-width: 100%; max-height: 260px; border-radius: 4px; object-fit: contain; }
+.img-placeholder {
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  color: var(--text-muted); font-size: 13px;
+}
+.img-placeholder .icon { font-size: 40px; opacity: .4; }
+.img-meta { padding: 8px 12px; background: var(--surface2); font-size: 11px; color: var(--text-muted); font-family: var(--mono); }
+
+/* ─── Log console ───────────────────────────────────────────── */
+.log-wrap {
+  height: 350px;
+  overflow-y: auto;
+  padding: 12px;
+  font-family: var(--mono);
+  font-size: 12px;
+  background: #0a0d12;
+  scroll-behavior: smooth;
+}
+.log-line {
+  padding: 2px 0;
+  display: flex;
+  gap: 8px;
+  border-bottom: 1px solid rgba(48,54,61,.3);
+  animation: fadeIn .2s ease;
+}
+@keyframes fadeIn { from { opacity: 0; transform: translateX(-4px); } to { opacity: 1; transform: none; } }
+.log-time { color: #495057; min-width: 90px; flex-shrink: 0; }
+.log-level { min-width: 50px; flex-shrink: 0; font-weight: 600; }
+.log-level.INFO { color: #58a6ff; }
+.log-level.OK   { color: #3fb950; }
+.log-level.WARN { color: var(--warn); }
+.log-level.ERR  { color: var(--danger); }
+.log-level.STEP { color: #bc8cff; }
+.log-msg { color: var(--text); flex: 1; word-break: break-word; }
+
+/* ─── Result viewer ─────────────────────────────────────────── */
+.result-wrap { padding: 16px; }
+.result-json {
+  background: #0a0d12;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 12px;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: #79c0ff;
+  white-space: pre-wrap;
+  max-height: 300px;
+  overflow-y: auto;
+}
+.result-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.result-table th { background: var(--surface2); color: var(--text-muted); padding: 8px 12px; text-align: left; font-size: 11px; text-transform: uppercase; }
+.result-table td { padding: 8px 12px; border-bottom: 1px solid var(--border); }
+.badge { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; }
+.badge.ok { background: rgba(63,185,80,.15); color: #3fb950; }
+.badge.fail { background: rgba(218,54,51,.15); color: var(--danger); }
+.badge.warn { background: rgba(210,153,34,.15); color: var(--warn); }
+
+/* ─── Empty state ───────────────────────────────────────────── */
+.empty { text-align: center; padding: 40px; color: var(--text-muted); font-size: 13px; }
+.empty .icon { font-size: 36px; margin-bottom: 8px; opacity: .4; }
+
+/* ─── Scrollbar ─────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header>
+  <div class="logo">
+    <div class="logo-icon">🏭</div>
+    <div>
+      <div class="logo-text">DK Python IMS</div>
+      <div class="logo-sub">Image Processing Service v0.2.0</div>
+    </div>
+  </div>
+  <div class="header-status">
+    <div class="dot" id="sse-dot" style="background:#da3633"></div>
+    <span id="sse-status" style="font-size:12px;color:var(--text-muted)">Đang kết nối...</span>
+    <span style="color:var(--border)">|</span>
+    <span style="font-size:12px;color:var(--text-muted)">Port <strong style="color:var(--text)">2342</strong></span>
+  </div>
+</header>
+
+<!-- Tab nav -->
+<nav class="tab-nav">
+  <button class="tab-btn active" onclick="switchTab('qc', this)">
+    🔍 QC Kiểm tra in ấn
+    <span class="tab-badge" id="badge-qc">0</span>
+  </button>
+  <button class="tab-btn" onclick="switchTab('system', this)">
+    ⚙️ Hệ thống
+  </button>
+  <!-- Thêm tab mới vào đây -->
+</nav>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<!--  TAB 1: QC Kiểm tra in ấn                                    -->
+<!-- ══════════════════════════════════════════════════════════════ -->
+<main>
+<div class="tab-panel active" id="tab-qc">
+
+  <!-- Stats -->
+  <div class="stats-row">
+    <div class="stat-card stat-info">
+      <div class="stat-label">⚡ Tổng yêu cầu</div>
+      <div class="stat-value" id="stat-total">0</div>
+      <div class="stat-sub">Kể từ khi khởi động</div>
+    </div>
+    <div class="stat-card stat-ok">
+      <div class="stat-label">✅ Thành công</div>
+      <div class="stat-value" id="stat-ok">0</div>
+      <div class="stat-sub" id="stat-ok-rate">–</div>
+    </div>
+    <div class="stat-card stat-err">
+      <div class="stat-label">❌ Lỗi</div>
+      <div class="stat-value" id="stat-err">0</div>
+      <div class="stat-sub" id="stat-err-rate">–</div>
+    </div>
+    <div class="stat-card stat-warn">
+      <div class="stat-label">⏱ Thời gian TB</div>
+      <div class="stat-value" id="stat-avg">–</div>
+      <div class="stat-sub">giây / yêu cầu</div>
+    </div>
+  </div>
+
+  <!-- Ảnh + Log + Kết quả -->
+  <div class="content-grid three" style="margin-bottom:20px">
+
+    <!-- Ảnh gốc nhận -->
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">📷 Ảnh nhận từ ERP</div>
+      </div>
+      <div class="img-wrap" id="img-original-wrap">
+        <div class="img-placeholder">
+          <div class="icon">📷</div>
+          <span>Chưa có ảnh</span>
+        </div>
+      </div>
+      <div class="img-meta" id="img-original-meta">Chờ yêu cầu từ ERP...</div>
+    </div>
+
+    <!-- Ảnh sau xử lý -->
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">🔧 Ảnh sau xử lý (align/resize)</div>
+      </div>
+      <div class="img-wrap" id="img-processed-wrap">
+        <div class="img-placeholder">
+          <div class="icon">🔧</div>
+          <span>Chưa xử lý</span>
+        </div>
+      </div>
+      <div class="img-meta" id="img-processed-meta">OpenCV: detect → perspective → resize</div>
+    </div>
+
+    <!-- Ảnh maket so sánh -->
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">🖼 Maket so sánh</div>
+      </div>
+      <div class="img-wrap" id="img-maket-wrap">
+        <div class="img-placeholder">
+          <div class="icon">🖼</div>
+          <span>Chưa có maket</span>
+        </div>
+      </div>
+      <div class="img-meta" id="img-maket-meta">Ảnh maket chuẩn từ DB</div>
+    </div>
+
+  </div>
+
+  <!-- Log + Kết quả LLM -->
+  <div class="content-grid">
+
+    <!-- Log console -->
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">📋 Nhật ký xử lý (real-time)</div>
+        <div class="panel-actions">
+          <button class="btn-xs" onclick="toggleAutoScroll()">📌 Auto-scroll</button>
+          <button class="btn-xs danger" onclick="clearLog()">🗑 Xóa</button>
+        </div>
+      </div>
+      <div class="log-wrap" id="log-console">
+        <div class="log-line">
+          <span class="log-time">--:--:--</span>
+          <span class="log-level INFO">INFO</span>
+          <span class="log-msg">Đang kết nối SSE...</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Kết quả trả về ERP -->
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">📤 Kết quả trả về ERP</div>
+        <div class="panel-actions">
+          <button class="btn-xs" onclick="toggleResultView()">🔄 Chuyển view</button>
+        </div>
+      </div>
+      <div class="result-wrap" id="result-area">
+        <div class="empty">
+          <div class="icon">📊</div>
+          <div>Chưa có kết quả. Chờ ERP gửi yêu cầu.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div><!-- /tab-qc -->
+
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<!--  TAB 2: Hệ thống                                             -->
+<!-- ══════════════════════════════════════════════════════════════ -->
+<div class="tab-panel" id="tab-system">
+  <div class="content-grid">
+    <div class="panel">
+      <div class="panel-header"><div class="panel-title">🖥 Thông tin service</div></div>
+      <div class="result-wrap">
+        <table class="result-table">
+          <tr><td style="color:var(--text-muted)">Phiên bản</td><td><strong>v0.2.0</strong></td></tr>
+          <tr><td style="color:var(--text-muted)">Host</td><td>0.0.0.0:2342</td></tr>
+          <tr><td style="color:var(--text-muted)">API Docs</td>
+              <td><a href="/docs" target="_blank" style="color:#58a6ff">/docs (Swagger)</a></td></tr>
+          <tr><td style="color:var(--text-muted)">Health check</td>
+              <td><a href="/api/health" target="_blank" style="color:#58a6ff">/api/health</a></td></tr>
+          <tr><td style="color:var(--text-muted)">SSE Log stream</td>
+              <td><code style="font-size:11px;color:#79c0ff">/api/log-stream</code></td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-header"><div class="panel-title">📡 Endpoints</div></div>
+      <div class="result-wrap">
+        <table class="result-table">
+          <thead><tr><th>Method</th><th>Path</th><th>Mô tả</th></tr></thead>
+          <tbody>
+            <tr><td><span class="badge warn">POST</span></td><td><code style="font-size:11px">/api/kiem-tra-in</code></td><td>Kiểm tra in ấn QC</td></tr>
+            <tr><td><span class="badge ok">GET</span></td><td><code style="font-size:11px">/api/health</code></td><td>Health check</td></tr>
+            <tr><td><span class="badge ok">GET</span></td><td><code style="font-size:11px">/api/log-stream</code></td><td>SSE log stream</td></tr>
+            <tr><td><span class="badge ok">GET</span></td><td><code style="font-size:11px">/</code></td><td>Dashboard UI</td></tr>
+            <tr><td><span class="badge ok">GET</span></td><td><code style="font-size:11px">/docs</code></td><td>Swagger UI</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div><!-- /tab-system -->
+
+</main>
+
+<script>
+// ─── Tab switching ────────────────────────────────────────────────────────────
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ─── Stats ────────────────────────────────────────────────────────────────────
+let stats = { total: 0, ok: 0, err: 0, totalTime: 0 };
+function updateStats(type, elapsed) {
+  if (type === 'ok') { stats.total++; stats.ok++; if (elapsed) stats.totalTime += elapsed; }
+  if (type === 'err') { stats.total++; stats.err++; }
+  document.getElementById('stat-total').textContent = stats.total;
+  document.getElementById('stat-ok').textContent = stats.ok;
+  document.getElementById('stat-err').textContent = stats.err;
+  const rate = stats.total > 0 ? Math.round(stats.ok / stats.total * 100) : 0;
+  document.getElementById('stat-ok-rate').textContent = rate + '% tỷ lệ thành công';
+  document.getElementById('stat-err-rate').textContent = stats.total - stats.ok + ' thất bại';
+  const avg = stats.ok > 0 ? (stats.totalTime / stats.ok).toFixed(1) : '–';
+  document.getElementById('stat-avg').textContent = avg;
+}
+
+// ─── Log console ──────────────────────────────────────────────────────────────
+let autoScroll = true;
+let reqCount = 0;
+
+function addLog(level, msg, time) {
+  const now = time || new Date().toLocaleTimeString('vi-VN', {hour:'2-digit',minute:'2-digit',second:'2-digit'});
+  const el = document.createElement('div');
+  el.className = 'log-line';
+  el.innerHTML = `<span class="log-time">${now}</span>
+    <span class="log-level ${level}">${level}</span>
+    <span class="log-msg">${escHtml(msg)}</span>`;
+  const c = document.getElementById('log-console');
+  // Limit 300 lines
+  while (c.children.length >= 300) c.removeChild(c.firstChild);
+  c.appendChild(el);
+  if (autoScroll) c.scrollTop = c.scrollHeight;
+  // Update badge
+  reqCount++;
+  document.getElementById('badge-qc').textContent = reqCount;
+}
+
+function clearLog() {
+  document.getElementById('log-console').innerHTML = '';
+  reqCount = 0;
+  document.getElementById('badge-qc').textContent = '0';
+}
+
+function toggleAutoScroll() {
+  autoScroll = !autoScroll;
+  addLog('INFO', 'Auto-scroll: ' + (autoScroll ? 'BẬT' : 'TẮT'));
+}
+
+function escHtml(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+// ─── Image display ────────────────────────────────────────────────────────────
+function showImage(wrapperId, metaId, url, meta) {
+  const wrap = document.getElementById(wrapperId);
+  wrap.innerHTML = `<img src="${url}" alt="image" onerror="this.src='/static/no-image.png'">`;
+  if (meta) document.getElementById(metaId).textContent = meta;
+}
+
+// ─── Result display ───────────────────────────────────────────────────────────
+let resultMode = 'table'; // 'table' | 'json'
+let lastResult = null;
+
+function showResult(data) {
+  lastResult = data;
+  renderResult();
+}
+
+function toggleResultView() {
+  resultMode = resultMode === 'table' ? 'json' : 'table';
+  renderResult();
+}
+
+function renderResult() {
+  if (!lastResult) return;
+  const area = document.getElementById('result-area');
+  if (resultMode === 'json') {
+    area.innerHTML = `<pre class="result-json">${escHtml(JSON.stringify(lastResult, null, 2))}</pre>`;
+    return;
+  }
+  // Table view
+  let rows = '';
+  const blocks = lastResult.blocks || [];
+  blocks.forEach((b, i) => {
+    const cls = b.status === 'ok' ? 'ok' : (b.status === 'warn' ? 'warn' : 'fail');
+    rows += `<tr>
+      <td>${i+1}</td>
+      <td><span class="badge ${cls}">${b.status?.toUpperCase()}</span></td>
+      <td>${escHtml(b.block_id || '')}</td>
+      <td style="max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${escHtml(b.error_content || '')}">${escHtml(b.error_content || '–')}</td>
+    </tr>`;
+  });
+  if (!rows) rows = `<tr><td colspan="4" class="empty">Không có block nào</td></tr>`;
+  area.innerHTML = `
+    <table class="result-table">
+      <thead><tr><th>#</th><th>Trạng thái</th><th>Block</th><th>Lỗi nội dung</th></tr></thead>
+      <tbody>${rows}</tbody>
+    </table>
+    <div style="margin-top:10px;font-size:12px;color:var(--text-muted)">
+      Mã SP: <strong style="color:var(--text)">${escHtml(lastResult.ma_san_pham||'–')}</strong>
+      | Kết luận: <strong style="color:${lastResult.ket_luan==='dat'?'#3fb950':'var(--danger)'}">${escHtml(lastResult.ket_luan?.toUpperCase()||'–')}</strong>
+    </div>`;
+}
+
+// ─── SSE connection ───────────────────────────────────────────────────────────
+function connectSSE() {
+  const evtSource = new EventSource('/api/log-stream');
+  const dot = document.getElementById('sse-dot');
+  const statusEl = document.getElementById('sse-status');
+
+  evtSource.onopen = () => {
+    dot.style.background = '#3fb950';
+    statusEl.textContent = 'Kết nối thành công';
+    addLog('OK', 'SSE stream kết nối thành công');
+  };
+
+  evtSource.onmessage = (e) => {
+    try {
+      const msg = JSON.parse(e.data);
+      addLog(msg.level || 'INFO', msg.message, msg.time);
+
+      // Handle special events
+      if (msg.type === 'image_received') {
+        showImage('img-original-wrap', 'img-original-meta',
+          '/api/preview-image?path=' + encodeURIComponent(msg.path),
+          'Nhận: ' + (msg.filename || ''));
+      }
+      if (msg.type === 'image_processed') {
+        showImage('img-processed-wrap', 'img-processed-meta',
+          'data:image/jpeg;base64,' + msg.base64,
+          msg.info || 'Sau xử lý OpenCV');
+      }
+      if (msg.type === 'maket_loaded') {
+        showImage('img-maket-wrap', 'img-maket-meta', msg.url, 'Maket: ' + (msg.tenmarket||''));
+      }
+      if (msg.type === 'result_done') {
+        showResult(msg.data);
+        updateStats(msg.data?.ket_luan === 'dat' ? 'ok' : 'err', msg.elapsed);
+      }
+    } catch {
+      addLog('INFO', e.data);
+    }
+  };
+
+  evtSource.onerror = () => {
+    dot.style.background = '#da3633';
+    statusEl.textContent = 'Mất kết nối – thử lại sau 5s...';
+    evtSource.close();
+    setTimeout(connectSSE, 5000);
+  };
+}
+
+// ─── Start ────────────────────────────────────────────────────────────────────
+connectSSE();
+</script>
+</body>
+</html>

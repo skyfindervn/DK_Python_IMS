@@ -1,0 +1,3 @@
+# ⚠️  Kiến trúc Monorepo – xem rule.md trước khi thêm package hoặc tạo app mới.
+[tool.uv.workspace]
+members = ["shared", "apps/*"]

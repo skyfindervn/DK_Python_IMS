@@ -1,0 +1,7 @@
+path: D:\DK_Python_IMS\DK_Python_IMS\apps\yolo_trainer\datasets\cardboard
+train: train/images
+val:   train/images   # dùng tạm train làm val vì dataset nhỏ (16 ảnh)
+
+nc: 1
+names:
+  0: box

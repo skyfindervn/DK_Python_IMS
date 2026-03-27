@@ -1,0 +1,61 @@
+# ── Virtual Environments ──────────────────────────────────────────────────────
+.venv/
+venv/
+env/
+
+# ── uv lock file is intentionally KEPT (version-pinning) ─────────────────────
+# uv.lock  <-- do NOT add this line; we want git to track uv.lock
+
+# ── Byte-compiled / cache ─────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+
+# ── Distribution / packaging ──────────────────────────────────────────────────
+dist/
+build/
+*.egg-info/
+*.egg
+.eggs/
+wheels/
+*.whl
+
+# ── Environment / secrets ─────────────────────────────────────────────────────
+.env
+.env.*
+!.env.example
+
+# ── Testing & coverage ────────────────────────────────────────────────────────
+.pytest_cache/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+.tox/
+.nox/
+
+# ── Type checking ─────────────────────────────────────────────────────────────
+.mypy_cache/
+.pytype/
+.pyre/
+
+# ── IDEs & editors ────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# ── OS artefacts ─────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── Logs ─────────────────────────────────────────────────────────────────────
+*.log
+logs/
+
+# ── Local databases ───────────────────────────────────────────────────────────
+*.db
+*.sqlite
+*.sqlite3
