@@ -1,15 +1,15 @@
 """
-train.py — YOLOv8 OBB (Oriented Bounding Box) training script
+train.py — YOLOv8 Segmentation training script
 ================================================================
-Huấn luyện mô hình YOLOv8-obb để detect hình chữ nhật xoay góc của
-vùng in trên tờ carton/màng nhựa, kể cả ảnh chụp nghịng.
+Huấn luyện mô hình YOLOv8-seg để phân vùng (segment) object
+trên ảnh, ví dụ: detect vùng box/carton với mask polygon.
 
 Sau khi train xong, file weights/best.pt sẽ được dùng
-bởi web_api để crop ảnh theo rotated bounding box.
+bởi web_api để inference.
 
 Chạy:
     python train.py
-    python train.py --model yolov8s-obb.pt --epochs 200 --batch 4
+    python train.py --model yolov8s-seg.pt --epochs 200 --batch 4
 """
 
 import argparse
@@ -21,12 +21,12 @@ from ultralytics import YOLO
 # ──────────────────────────────────────────────────────────────────────────────
 # Defaults
 # ──────────────────────────────────────────────────────────────────────────────
-DEFAULT_MODEL  = "yolov8n-obb.pt"        # OBB: detect hình chữ nhật có góc xoay
+DEFAULT_MODEL  = "yolov8m-seg.pt"        # Segmentation: phân vùng object bằng polygon mask
 DEFAULT_EPOCHS = 150
-DEFAULT_IMGSZ  = 1280
+DEFAULT_IMGSZ  = 640
 DEFAULT_BATCH  = 8                       # giảm xuống 4 nếu RAM GPU < 8GB
-DEFAULT_DATA   = "datasets/cardboard/data.yaml"    # data.yaml từ Roboflow export
-DEFAULT_OUTPUT = "runs/carton_obb"
+DEFAULT_DATA   = "datasets/data.yaml"    # data.yaml từ Roboflow export
+DEFAULT_OUTPUT = "runs/findcarton_seg"
 DEFAULT_DEVICE = ""                      # "" = auto detect (GPU > CPU)
 
 # ──────────────────────────────────────────────────────────────────────────────
@@ -34,7 +34,7 @@ DEFAULT_DEVICE = ""                      # "" = auto detect (GPU > CPU)
 
 def main(args: argparse.Namespace) -> None:
     print(f"\n{'='*60}")
-    print(f"  CARTON PRINT — YOLOv8 SEGMENTATION TRAINER")
+    print(f"  FINDCARTON — YOLOv8 SEGMENTATION TRAINER")
     print(f"{'='*60}")
     print(f"  Model    : {args.model}")
     print(f"  Epochs   : {args.epochs}")
@@ -91,7 +91,7 @@ def main(args: argparse.Namespace) -> None:
     )
 
     best_weights = Path(args.output) / "train" / "weights" / "best.pt"
-    dest = Path("weights") / "carton_obb_best.pt"
+    dest = Path("weights") / "findcarton_seg_best.pt"
     dest.parent.mkdir(exist_ok=True)
     if best_weights.exists():
         shutil.copy(best_weights, dest)

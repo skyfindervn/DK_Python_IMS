@@ -1,0 +1,7 @@
+names:
+  0: box
+nc: 1
+path: /media/bbdk-ai/New Volume/1. Software/Yolo-train/DK_Python_IMS/apps/yolo_trainer/datasets
+test: test/images
+train: train/images
+val: valid/images
