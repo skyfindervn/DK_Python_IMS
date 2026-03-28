@@ -1,6 +1,0 @@
-names:
-  0: box
-nc: 1
-path: /media/bbdk-ai/New Volume/1. Software/Yolo-train/DK_Python_IMS/apps/yolo_trainer/datasets/cardboard
-train: train/images
-val: train/images

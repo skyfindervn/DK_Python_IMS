@@ -59,3 +59,5 @@ logs/
 *.db
 *.sqlite
 *.sqlite3
+runs/
+*.pt
