@@ -72,24 +72,27 @@ async def kiem_tra_in(req: KiemTraInRequest) -> KiemTraInResponse:
         tenmarket=req.ten_maket or "",
     )
 
-    # ── 2. Alignment (Universal SIFT Homography) ───────────────────────────────
+    # ── 2. Crop + Align (YOLO OBB → SIFT Homography) ──────────────────────────
     log_broker.push(
-        f"🔧 [2/5] Universal Alignment (Template: {img_maket.shape[1]}x{img_maket.shape[0]})...",
+        f"🔧 [2/5] Crop vùng in bằng YOLO OBB → SIFT Alignment...",
         level="STEP",
     )
     
     align_result = universal_align(img_chup, img_maket)
+    yolo_conf    = align_result.get("yolo_conf", 0.0)
+    matches      = align_result.get("match_count", 0)
+
+    if yolo_conf > 0:
+        log_broker.push(f"✂️ YOLO crop OK | conf={yolo_conf:.2f}", level="OK")
+    else:
+        log_broker.push("⚠️ YOLO không có weights/crop fail → dùng ảnh gốc cho SIFT.", level="WARN")
     
     if align_result["status"] == "success":
         img_chup_aligned = align_result["aligned_image"]
-        matches = align_result["match_count"]
-        log_broker.push(f"✅ Alignment OK | {matches} inliers.", level="OK")
+        log_broker.push(f"✅ SIFT Alignment OK | {matches} inliers.", level="OK")
     else:
-        # Fallback raw
-        log_broker.push(f"⚠️ Alignment thất bại. Dùng ảnh gốc.", level="WARN")
-        img_chup_aligned = img_chup
-        # Để tránh lỗi tỉ lệ, resize về bằng maket nếu alignment fail
-        img_chup_aligned = cv2.resize(img_chup_aligned, (img_maket.shape[1], img_maket.shape[0]))
+        log_broker.push(f"⚠️ SIFT Alignment thất bại ({matches} matches). Dùng ảnh gốc.", level="WARN")
+        img_chup_aligned = cv2.resize(img_chup, (img_maket.shape[1], img_maket.shape[0]))
 
     ha, wa = img_chup_aligned.shape[:2]
     
