@@ -1,0 +1,175 @@
+
+======================================================================
+  File: 2SP201063-1.jpg
+======================================================================
+  Original: 5681x3341
+  Cropped:  4769x2309
+  Zones:    12
+  Zone debug saved: D:\DK_Python_IMS\DK_Python_IMS\apps\yolo_trainer\debug_2SP201063-1_zones.jpg
+
+  --- Zone R1C2 ((152, 0, 1459, 503)) ---
+    [R1C2] SÁN PHM - ĐT
+    [R1C2] CÚP
+    [R1C2] VÀNG,
+    [R1C2] HUY
+    [R1C2] CHUO'NG
+    [R1C2] VÀNG
+    [R1C2] THC PHM
+    [R1C2] -CHÁT
+    [R1C2] LUONG
+    [R1C2] vi súc
+    [R1C2] TOÀN
+    [R1C2] KHOE
+    [R1C2] AN
+    [R1C2] CNG ĐNG
+
+  --- Zone R1C3 ((1459, 0, 2463, 503)) ---
+    [R1C3] (no text detected)
+
+  --- Zone R1C4 ((2463, 0, 3770, 503)) ---
+    [R1C4] YEU
+    [R1C4] CÂU
+    [R1C4] MOI
+    [R1C4] XIN
+    [R1C4] LIN H
+    [R1C4] 70
+    [R1C4] CÖNG
+    [R1C4] TY
+    [R1C4] TNHH
+    [R1C4] NGOC
+    [R1C4] ANH
+    [R1C4] NHÀ MÁY NƯÓC
+    [R1C4] KHIT
+    [R1C4] TINH
+    [R1C4] CHEERY
+    [R1C4] T 6 - P.TÂN
+    [R1C4] THÁI NGUYN
+    [R1C4] THINH
+    [R1C4] TP.
+    [R1C4] DT: 0208.3846397
+    [R1C4] DTDD:
+    [R1C4] 0968.193588
+    [R1C4] wm
+
+  --- Zone R1C5 ((3770, 0, 4769, 503)) ---
+    [R1C5] (no text detected)
+
+  --- Zone R2C2 ((152, 503, 1459, 1806)) ---
+    [R2C2] DRINKING WATER
+    [R2C2] R
+    [R2C2] PURIFIED
+    [R2C2] SHEERY
+    [R2C2] **4.7
+    [R2C2] Rheery
+    [R2C2] Nuc chry chăm sóc bn m ngy
+    [R2C2] VIET NAM
+    [R2C2] VIET NAM
+    [R2C2] BEST FOOD
+    [R2C2] BEST FOOD
+    [R2C2] AI
+    [R2C2] /L
+    [R2C2] LTD
+    [R2C2] I CO
+    [R2C2] ANH
+    [R2C2] NGOC
+
+  --- Zone R2C3 ((1459, 503, 2463, 1806)) ---
+    [R2C3] HANDLE WITH CARE - KEEP COOL
+    [R2C3] 12 Bottles x 1500ml
+    [R2C3] CHEERY
+    [R2C3] KHIT
+    [R2C3] TINH
+    [R2C3] NU'ÓC
+    [R2C3] LÀN
+    [R2C3] UONG
+    [R2C3] NGAM
+    [R2C3] NU'Ó'C
+    [R2C3] NGUÔN
+    [R2C3] TÙ
+    [R2C3] XUÁT
+    [R2C3] SÁN
+    [R2C3] DU'O'C
+    [R2C3] "-
+    [R2C3] ∴
+    [R2C3] .
+    [R2C3] USA XU LY
+    [R2C3] CUA
+    [R2C3] R.O
+    [R2C3] THONG
+    [R2C3] HÊ
+    [R2C3] QUA
+    [R2C3] LOC
+    [R2C3] N VÀ UV
+    [R2C3] BÀNG
+    [R2C3] OZON
+    [R2C3] TRUNG
+    [R2C3] TILET
+    [R2C3] WATER
+    [R2C3] DRINGKING
+    [R2C3] PURIFIED
+    [R2C3] FROM
+    [R2C3] MANUFACTURED
+    [R2C3] CHEERY
+    [R2C3] WATER SOURCE PURIFIED
+    [R2C3] UNDERGROUND
+    [R2C3] BY R.O STERILLIZED BY U.V
+
+  --- Zone R2C4 ((2463, 503, 3770, 1806)) ---
+    [R2C4] R
+    [R2C4] PURIFIED DRINKING WATER
+    [R2C4] ANH
+    [R2C4] L
+    [R2C4] AT CHEERY
+    [R2C4] Cheery
+    [R2C4] Nuc cheery chăm sóc bn mi ngy
+    [R2C4] NAM
+    [R2C4] VIET
+    [R2C4] VIET NAM
+    [R2C4] BEST FOOD
+    [R2C4] BEST FOOD
+    [R2C4] 12 CHAI
+    [R2C4] 1500ML
+    [R2C4] LTD
+    [R2C4] ANH
+
+  --- Zone R2C5 ((3770, 503, 4769, 1806)) ---
+    [R2C5] Nhe tay, bão quán noi râm mát
+    [R2C5] 12 Chai x 1500 ml
+    [R2C5] TY TNHH NGOC ANH
+    [R2C5] SAN XUAT
+    [R2C5] TAI: CONG
+    [R2C5] TINH KHIT CHEERY
+    [R2C5] NHA MAY
+    [R2C5] NU'O'C
+    [R2C5] :56 50 5505
+    [R2C5] TP. THÁI NGUYN
+    [R2C5] TO 6 -P.TÂN
+    [R2C5] THINH
+    [R2C5] DTDD: 0968193588
+    [R2C5] DT: 0208.3846397
+    [R2C5] Só TCB: 01/CTTNHHNA/2020
+    [R2C5] 2
+    [R2C5] 1893 600916 001 0
+    [R2C5] NGAY SX và HSD: Xem trên than chai
+
+  --- Zone R3C2 ((152, 1806, 1459, 2309)) ---
+    [R3C2] (no text detected)
+
+  --- Zone R3C3 ((1459, 1806, 2463, 2309)) ---
+    [R3C3] (no text detected)
+
+  --- Zone R3C4 ((2463, 1806, 3770, 2309)) ---
+    [R3C4] (no text detected)
+
+  --- Zone R3C5 ((3770, 1806, 4769, 2309)) ---
+    [R3C5] (no text detected)
+
+======================================================================
+  File: 2SP217118-1.jpg
+======================================================================
+  Original: 6442x4067
+  Cropped:  5589x2821
+  Zones:    12
+  Zone debug saved: D:\DK_Python_IMS\DK_Python_IMS\apps\yolo_trainer\debug_2SP217118-1_zones.jpg
+
+  --- Zone R2C1 ((0, 113, 1484, 2210)) ---

@@ -1,0 +1,164 @@
+{
+  "result": {
+    "status": 1,
+    "noi_dung_loi": null,
+    "vi_tri_loi": null,
+    "raw": "OCR comparison: 0/0 zones failed"
+  },
+  "zone_results": [
+    {
+      "zone_id": 0,
+      "zone_label": "R1C1",
+      "status": 1,
+      "maket_text": "",
+      "chup_text": "",
+      "diffs": [],
+      "similarity_score": 1.0,
+      "error_summary": ""
+    },
+    {
+      "zone_id": 1,
+      "zone_label": "R1C2",
+      "status": 1,
+      "maket_text": "",
+      "chup_text": "",
+      "diffs": [],
+      "similarity_score": 1.0,
+      "error_summary": ""
+    },
+    {
+      "zone_id": 2,
+      "zone_label": "R1C3",
+      "status": 1,
+      "maket_text": "",
+      "chup_text": "",
+      "diffs": [],
+      "similarity_score": 1.0,
+      "error_summary": ""
+    },
+    {
+      "zone_id": 3,
+      "zone_label": "R1C4",
+      "status": 1,
+      "maket_text": "",
+      "chup_text": "",
+      "diffs": [],
+      "similarity_score": 1.0,
+      "error_summary": ""
+    },
+    {
+      "zone_id": 4,
+      "zone_label": "R1C5",
+      "status": 1,
+      "maket_text": "",
+      "chup_text": "",
+      "diffs": [],
+      "similarity_score": 1.0,
+      "error_summary": ""
+    },
+    {
+      "zone_id": 5,
+      "zone_label": "R2C1",
+      "status": 1,
+      "maket_text": "",
+      "chup_text": "",
+      "diffs": [],
+      "similarity_score": 1.0,
+      "error_summary": ""
+    },
+    {
+      "zone_id": 6,
+      "zone_label": "R2C2",
+      "status": 1,
+      "maket_text": "",
+      "chup_text": "",
+      "diffs": [],
+      "similarity_score": 1.0,
+      "error_summary": ""
+    },
+    {
+      "zone_id": 7,
+      "zone_label": "R2C3",
+      "status": 1,
+      "maket_text": "",
+      "chup_text": "",
+      "diffs": [],
+      "similarity_score": 1.0,
+      "error_summary": ""
+    },
+    {
+      "zone_id": 8,
+      "zone_label": "R2C4",
+      "status": 1,
+      "maket_text": "",
+      "chup_text": "",
+      "diffs": [],
+      "similarity_score": 1.0,
+      "error_summary": ""
+    },
+    {
+      "zone_id": 9,
+      "zone_label": "R2C5",
+      "status": 1,
+      "maket_text": "",
+      "chup_text": "",
+      "diffs": [],
+      "similarity_score": 1.0,
+      "error_summary": ""
+    },
+    {
+      "zone_id": 10,
+      "zone_label": "R3C1",
+      "status": 1,
+      "maket_text": "",
+      "chup_text": "",
+      "diffs": [],
+      "similarity_score": 1.0,
+      "error_summary": ""
+    },
+    {
+      "zone_id": 11,
+      "zone_label": "R3C2",
+      "status": 1,
+      "maket_text": "",
+      "chup_text": "",
+      "diffs": [],
+      "similarity_score": 1.0,
+      "error_summary": ""
+    },
+    {
+      "zone_id": 12,
+      "zone_label": "R3C3",
+      "status": 1,
+      "maket_text": "",
+      "chup_text": "",
+      "diffs": [],
+      "similarity_score": 1.0,
+      "error_summary": ""
+    },
+    {
+      "zone_id": 13,
+      "zone_label": "R3C4",
+      "status": 1,
+      "maket_text": "",
+      "chup_text": "",
+      "diffs": [],
+      "similarity_score": 1.0,
+      "error_summary": ""
+    },
+    {
+      "zone_id": 14,
+      "zone_label": "R3C5",
+      "status": 1,
+      "maket_text": "",
+      "chup_text": "",
+      "diffs": [],
+      "similarity_score": 1.0,
+      "error_summary": ""
+    }
+  ],
+  "total_zones": 0,
+  "error_zones": 0,
+  "message": "Hoàn thành: 146.02s | DAT | 0/0 zones lỗi",
+  "blocks": []
+}

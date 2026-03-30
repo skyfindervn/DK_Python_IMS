@@ -1,0 +1,50 @@
+======================================================================
+  FULL OCR PIPELINE TEST: DTK Plastic
+======================================================================
+
+[1] Loading images...
+  Maket: 9402x4722
+  Chụp:  2568x1926
+
+[2] Crop maket (remove dimension annotations)...
+  Maket cropped: 8171x3312
+
+[3] Zone split maket...
+  Maket zones: 15
+    R1C1 bbox=(0, 0, 2514, 829)
+    R1C2 bbox=(2514, 0, 4168, 829)
+    R1C3 bbox=(4168, 0, 6532, 829)
+    R1C4 bbox=(6532, 0, 7469, 829)
+    R1C5 bbox=(7469, 0, 8171, 829)
+    R2C1 bbox=(0, 829, 2514, 2483)
+    R2C2 bbox=(2514, 829, 4168, 2483)
+    R2C3 bbox=(4168, 829, 6532, 2483)
+    R2C4 bbox=(6532, 829, 7469, 2483)
+    R2C5 bbox=(7469, 829, 8171, 2483)
+    R3C1 bbox=(0, 2483, 2514, 3312)
+    R3C2 bbox=(2514, 2483, 4168, 3312)
+    R3C3 bbox=(4168, 2483, 6532, 3312)
+    R3C4 bbox=(6532, 2483, 7469, 3312)
+    R3C5 bbox=(7469, 2483, 8171, 3312)
+
+[4] Resize ảnh chụp → 8171x3312...
+
+[5] Áp dụng zone grid maket lên ảnh chụp...
+  Chụp zones (from maket grid): 15
+
+[6] OCR (PaddleOCR Vietnamese)...
+
+  --- MAKET OCR ---
+  [R1C1] (empty)
+  [R1C2] (empty)
+  [R1C3] (empty)
+  [R1C4] (empty)
+  [R1C5] (empty)
+  [R2C1] u 9g
+DTK
+216 mm
+PLASTIC
+CÔNG TY C PHN SN XUÁT VÀ THƯNG MI NHA DTK H LONG
+Đa chi: Cm công nghip Hoành B - xã Thng Nht - t
+  [R2C2] (empty)
+  [R2C3] (empty)

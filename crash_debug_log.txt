@@ -1,0 +1,23 @@
+Shape ảnh crop: (3312, 8171, 3)
+
+=================
+Chạy OCR cho zone R1C1, shape: (829, 2514, 3)
+Kết quả R1C1: ''
+
+=================
+Chạy OCR cho zone R1C2, shape: (829, 1654, 3)
+Kết quả R1C2: ''
+
+=================
+Chạy OCR cho zone R1C3, shape: (829, 2364, 3)
+Kết quả R1C3: ''
+
+=================
+Chạy OCR cho zone R1C4, shape: (829, 937, 3)
+Kết quả R1C4: ''
+
+=================
+Chạy OCR cho zone R1C5, shape: (829, 702, 3)
+Kết quả R1C5: ''
+
+Done!

@@ -16,6 +16,7 @@ load_dotenv(dotenv_path=_env_path)
 from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse, StreamingResponse, FileResponse
 from fastapi.staticfiles import StaticFiles
+from fastapi.middleware.cors import CORSMiddleware
 from shared.database import connect_db
 from routers.kiem_tra_in import router as kiem_tra_in_router
 import log_broker
@@ -33,6 +34,15 @@ app = FastAPI(
     title="DK Python IMS - Web API",
     version="0.2.0",
     description="API noi bo: Kiem tra chat luong in an bang AI",
+)
+
+# -- CORS (cho phép Laravel ERP gọi SSE cross-origin) ---------------------------
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],   # hoặc chỉ định domain ERP cụ thể nếu muốn bảo mật hơn
+    allow_credentials=False,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 # -- Static ------------------------------------------------------------------
@@ -91,7 +101,7 @@ async def log_stream(request: Request):
                 if await request.is_disconnected():
                     break
                 try:
-                    data = await asyncio.wait_for(queue.get(), timeout=15.0)
+                    data = await asyncio.wait_for(queue.get(), timeout=60.0)
                     yield f"data: {data}\n\n"
                 except asyncio.TimeoutError:
                     yield ": heartbeat\n\n"
@@ -102,9 +112,10 @@ async def log_stream(request: Request):
         event_generator(),
         media_type="text/event-stream",
         headers={
-            "Cache-Control": "no-cache",
-            "X-Accel-Buffering": "no",
-            "Connection": "keep-alive",
+            "Cache-Control":               "no-cache",
+            "X-Accel-Buffering":           "no",
+            "Connection":                  "keep-alive",
+            "Access-Control-Allow-Origin": "*",
         },
     )
 

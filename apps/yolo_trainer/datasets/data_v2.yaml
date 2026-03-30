@@ -1,0 +1,10 @@
+# carton dataset config v2 — YOLOv8 Segmentation
+# Đổi "carton_seg_v2" thành tên thư mục dataset thực tế của bạn
+
+path: datasets/carton_seg_v2   # root dir chứa images/ và labels/
+train: images/train
+val:   images/val
+
+nc: 1  # number of classes (chỉ detect 1 loại: vùng in carton)
+names:
+  0: carton_print            # vùng in trên tờ carton
